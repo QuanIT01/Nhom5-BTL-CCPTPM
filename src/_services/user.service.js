@@ -6,6 +6,7 @@ export const userService = {
     logout,
     register,
     getAll,
+    getAllBook,
     getById,
     update,
     delete: _delete
@@ -40,7 +41,20 @@ function getAll() {
 
     return fetch(`http://localhost:3000/users`, requestOptions).then(handleResponse);
 }
+function handleResponseBook(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        return data;
+    });
+}
 
+function getAllBook() {
+    const requestOptions = {
+        method: 'GET'
+    };
+
+    return fetch(`http://localhost:8888/v1/api/books`, requestOptions).then(handleResponse);
+}
 function getById(id) {
     const requestOptions = {
         method: 'GET',
@@ -56,7 +70,7 @@ function register(user) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     };
-    
+
     return fetch(`http://localhost:3000/register`, requestOptions).then(handleResponse);
 }
 
@@ -86,7 +100,7 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                
+
             }
 
             const error = (data && data.message) || response.statusText;

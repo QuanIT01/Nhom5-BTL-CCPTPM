@@ -1,3 +1,24 @@
+import { getBookApi } from "./bookService";
+import { userService } from "../../src/_services/user.service";
+let data;
+// let data = getBookApi();
+// async function getBooks() {
+//   var books = await getBookApi();
+//   return books;
+// }
+// (() => {
+// data = getBookApi();
+// })()
+
+data = userService.getAllBook();
+
+
+console.log("data: ", data);
+
+
+
+
+
 export const phones = [
   {
     title: "Java The Complete Reference ",
