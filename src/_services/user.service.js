@@ -6,7 +6,6 @@ export const userService = {
     logout,
     register,
     getAll,
-    getAllBook,
     getById,
     update,
     delete: _delete
@@ -19,10 +18,12 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
+
+
     return fetch(`http://localhost:3000/users/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            // store user    details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
 
             return user;
@@ -41,20 +42,7 @@ function getAll() {
 
     return fetch(`http://localhost:3000/users`, requestOptions).then(handleResponse);
 }
-function handleResponseBook(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        return data;
-    });
-}
 
-function getAllBook() {
-    const requestOptions = {
-        method: 'GET'
-    };
-
-    return fetch(`http://localhost:8888/v1/api/books`, requestOptions).then(handleResponse);
-}
 function getById(id) {
     const requestOptions = {
         method: 'GET',
